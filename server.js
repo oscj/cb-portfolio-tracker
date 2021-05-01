@@ -18,12 +18,12 @@ const server = express();
 
 // GET list of accounts and assosciated value
 server.get("/accounts", (req, res, next) => {
-    client.getAccounts({}, function (err, accounts) {
+    client.getAccounts({}, (err, accounts) => {
         if (err) {
             next(err);
         } else {
             let resAccounts = { "wallet": {} };
-            accounts.forEach(function (acct) {
+            accounts.forEach((acct) => {
                 resAccounts["wallet"][acct["currency"]] = acct["balance"];
             });
             res.status(200).json(resAccounts);
@@ -32,8 +32,8 @@ server.get("/accounts", (req, res, next) => {
 });
 
 server.get("/btc-price-usd", (req, res) => {
-    client.getBuyPrice({ 'currencyPair': 'BTC-USD' }, function (err, result) {
-        if(err){
+    client.getBuyPrice({ 'currencyPair': 'BTC-USD' }, (err, result) => {
+        if (err) {
             next(err);
         } else {
             res.status(200).json(result["data"]);
@@ -43,13 +43,13 @@ server.get("/btc-price-usd", (req, res) => {
 
 
 // client error handler
-server.use(function (err, req, res, next) {
+server.use((err, req, res, next) => {
     res.status(err.statusCode || 500).json(err);
     next(err, req, res);
 });
 
 // server error handler
-server.use(function (err, req, res, next) {
+server.use((err, req, res, next) => {
     console.error(err.stack);
     console.error(err.statusCode);
 });
