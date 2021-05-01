@@ -1,22 +1,10 @@
 const express = require("express");
 const router = express.Router();
-
-// Load API auth values from .env
-require('dotenv').config();
-const key = process.env.API_KEY;
-const secret = process.env.API_SECRET;
-
-var Coinbase = require('coinbase');
-// Initialize coinbase client
-var coinbaseClient = new Coinbase.Client({
-    apiKey: key,
-    apiSecret: secret,
-    strictSSL: false
-});
-
+const CoinbaseClient = require("../clients/coinbaseClient");
 
 // GET list of accounts and assosciated value
 router.get("/accounts", (req, res, next) => {
+    coinbaseClient = new CoinbaseClient().client;
     coinbaseClient.getAccounts({}, (err, accounts) => {
         if (err) {
             next(err);
@@ -45,6 +33,8 @@ router.post("/account-balace", (req, res, next) => {
         next(err, req, res);
     }
 
+    // init coinbase client
+    coinbaseClient = new CoinbaseClient().client;
     coinbaseClient.getAccount(id, function (err, account) {
         if (err) {
             next(err, req, res);

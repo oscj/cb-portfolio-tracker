@@ -12,8 +12,8 @@ const marketInfo = require("./routes/marketInfo");              // market info r
 const errorHandler = require("./middlewares/errorHandlers");    // error handler middlewares
 
 // assign routes to routers
-server.use("/accountInfo", accountInfo);
-server.use("/marketInfo", marketInfo);
+server.use("/account-info", accountInfo);
+server.use("/market-info", marketInfo);
 
 // use error handlers
 server.use(errorHandler.clientErrorHandler);
