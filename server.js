@@ -1,58 +1,23 @@
 const express = require("express");
-var Coinbase = require('coinbase');
-
-// Load API auth values from .env
-require('dotenv').config();
-const key = process.env.API_KEY;
-const secret = process.env.API_SECRET;
-
-// Initialize coinbase client
-var client = new Coinbase.Client({
-    apiKey: key,
-    apiSecret: secret,
-    strictSSL: false
-});
-
-// Initialize express server
 const server = express();
 
-// GET list of accounts and assosciated value
-server.get("/accounts", (req, res, next) => {
-    client.getAccounts({}, (err, accounts) => {
-        if (err) {
-            next(err);
-        } else {
-            let resAccounts = { "wallet": {} };
-            accounts.forEach((acct) => {
-                resAccounts["wallet"][acct["currency"]] = acct["balance"];
-            });
-            res.status(200).json(resAccounts);
-        }
-    });
-});
+// enables passing of POST data through x-www-form-urlencoded
+server.use(express.json());
+server.use(express.urlencoded({
+    extended: true
+}));
 
-server.get("/btc-price-usd", (req, res) => {
-    client.getBuyPrice({ 'currencyPair': 'BTC-USD' }, (err, result) => {
-        if (err) {
-            next(err);
-        } else {
-            res.status(200).json(result["data"]);
-        }
-    });
-});
+const accountInfo = require("./routes/accountInfo");            // account info router
+const marketInfo = require("./routes/marketInfo");              // market info router
+const errorHandler = require("./middlewares/errorHandlers");    // error handler middlewares
 
+// assign routes to routers
+server.use("/accountInfo", accountInfo);
+server.use("/marketInfo", marketInfo);
 
-// client error handler
-server.use((err, req, res, next) => {
-    res.status(err.statusCode || 500).json(err);
-    next(err, req, res);
-});
-
-// server error handler
-server.use((err, req, res, next) => {
-    console.error(err.stack);
-    console.error(err.statusCode);
-});
+// use error handlers
+server.use(errorHandler.clientErrorHandler);
+server.use(errorHandler.serverErrorHandler);
 
 const PORT = process.env.PORT || 3007;
 server.listen(PORT, () => {
