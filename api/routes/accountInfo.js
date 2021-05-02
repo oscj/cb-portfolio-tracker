@@ -11,6 +11,8 @@ router.get("/accounts", (req, res, next) => {
         } else {
             let resAccounts = { "wallet": {} };
             accounts.forEach((acct) => {
+                console.log(acct);
+                console.log("\n\n")
                 resAccounts["wallet"][acct["currency"]] = acct["balance"];
                 resAccounts["wallet"][acct["currency"]]["id"] = acct["id"];
             });
@@ -81,6 +83,7 @@ router.post("/account-transactions", (req, res, next) => {
             let allTxns = [];
             // append all transactions details to array
             txns.forEach(function (txn) {
+                console.log(txn, "\n\n\n\n");
                 allTxns.push(txn.details);
             });
 

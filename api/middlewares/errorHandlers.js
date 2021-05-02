@@ -1,5 +1,5 @@
 const clientErrorHandler = (err, req, res, next) => {
-    res.status(err.statusCode || 500).json(err);
+    res.status(err.statusCode || 500).json(err.message);
     next(err, req, res);
 };
 
