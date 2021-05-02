@@ -19,7 +19,10 @@ router.get("/accounts", (req, res, next) => {
     });
 });
 
-// GET account balance
+/**
+ * returns account balance object
+ * id is sent through POST body
+ */
 router.post("/account-balace", (req, res, next) => {
     body = req.body;
 
@@ -35,7 +38,7 @@ router.post("/account-balace", (req, res, next) => {
 
     // init coinbase client
     coinbaseClient = new CoinbaseClient().client;
-    coinbaseClient.getAccount(id, function (err, account) {
+    coinbaseClient.getAccount(id, (err, account) => {
         if (err) {
             next(err, req, res);
         }
@@ -47,6 +50,44 @@ router.post("/account-balace", (req, res, next) => {
         });
     });
 
+});
+
+router.post("/account-transactions", (req, res, next) => {
+    body = req.body;
+    // check that id is in body
+    let id = body.id;
+    if (id == null || typeof id === 'undefined') {
+        err = {
+            description: "id not included in request body",
+            statusCode: 400
+        }
+        next(err, req, res);
+    }
+
+    coinbaseClient = new CoinbaseClient().client;
+
+    // fetch account
+    coinbaseClient.getAccount(id, (err, account) => {
+        if (err) {
+            next(err, req, res);
+        }
+
+        // fetch transactions from account
+        account.getTransactions(null, function (err, txns) {
+            if (err) {
+                next(err, req, res);
+            }
+
+            let allTxns = [];
+            // append all transactions details to array
+            txns.forEach(function (txn) {
+                allTxns.push(txn.details);
+            });
+
+            // sucess, sends back array of transactions
+            res.status(200).json(allTxns);
+        });
+    });
 });
 
 
