@@ -11,3 +11,9 @@ create a .env file in the root of your cloned directory with your own Coinbase P
 API_KEY=<YOUR_API_KEY>
 API_SECRET=<YOUR_API_SECRET>
 ```
+
+### Components
+
+- The __api/__ folder contains Node js express app for interfacing with Coinbase API
+
+- The __potfoliotacker/__ directory contains a dart application (developed for the web) to display portfolio information.
