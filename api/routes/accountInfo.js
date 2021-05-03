@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const CoinbaseClient = require("../clients/coinbaseClient");
+const CoinbaseClient = require("../models/coinbaseClient");
 
 // GET list of accounts and assosciated value
 router.get("/accounts", (req, res, next) => {
@@ -21,15 +21,12 @@ router.get("/accounts", (req, res, next) => {
     });
 });
 
-/**
- * returns account balance object
- * id is sent through POST body
- */
+// POST to return account balance object
+// account id is sent through POST body
 router.post("/account-balace", (req, res, next) => {
     body = req.body;
 
     // Check that id is in body
-    let id = body.id;
     if (id == null || typeof id === 'undefined') {
         err = {
             description: "id not included in request body",
@@ -38,7 +35,6 @@ router.post("/account-balace", (req, res, next) => {
         next(err, req, res);
     }
 
-    // init coinbase client
     coinbaseClient = new CoinbaseClient().client;
     coinbaseClient.getAccount(id, (err, account) => {
         if (err) {
@@ -66,24 +62,20 @@ router.post("/account-transactions", (req, res, next) => {
         next(err, req, res);
     }
 
-    coinbaseClient = new CoinbaseClient().client;
-
     // fetch account
+    coinbaseClient = new CoinbaseClient().client;
     coinbaseClient.getAccount(id, (err, account) => {
         if (err) {
             next(err, req, res);
         }
 
-        // fetch transactions from account
         account.getTransactions(null, function (err, txns) {
             if (err) {
                 next(err, req, res);
             }
 
             let allTxns = [];
-            // append all transactions details to array
             txns.forEach(function (txn) {
-                console.log(txn, "\n\n\n\n");
                 allTxns.push(txn.details);
             });
 
@@ -92,6 +84,5 @@ router.post("/account-transactions", (req, res, next) => {
         });
     });
 });
-
 
 module.exports = router;
