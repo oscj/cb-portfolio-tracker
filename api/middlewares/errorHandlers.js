@@ -1,5 +1,5 @@
 const clientErrorHandler = (err, req, res, next) => {
-    res.status(err.statusCode || 500).json(err.message);
+    res.status(err.statusCode || 500).json(err.message || "Internal server error.");
     next(err, req, res);
 };
 
