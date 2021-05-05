@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'shared/colors.dart' as appColors;
+import 'detailed-asset-view/detailedAssetView.dart';
+import 'portfolio-overview/portfolioOverview.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Coinbase Portfolio Tracker',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -31,10 +35,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Coinbase Portfolio Tracker"),
-        backgroundColor: Colors.blueAccent,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[Text(''), Text('cb-portfolio-tracker')],
+        ),
+        backgroundColor: appColors.Colors.mainDark,
       ),
-      body: Container(),
+      body: Column(children: [
+        PortfolioOverview(),
+        DetailedAssetView(),
+      ]),
     );
   }
 }
