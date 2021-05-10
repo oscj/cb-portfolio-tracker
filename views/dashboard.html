@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <!-- ... -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../public/css/tailwind.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="flex-1 flex flex-col">
+        <nav class="px-4 flex justify-between bg-white h-16 border-b-2">
+            <!-- top bar left -->
+            <ul class="flex items-center">
+                <li class="h-6 w-20">
+                    <img class="h-full w-full mx-auto"
+                        src="https://images.ctfassets.net/q5ulk4bp65r7/3TBS4oVkD1ghowTqVQJlqj/2dfd4ea3b623a7c0d8deb2ff445dee9e/Consumer_Wordmark.svg"
+                        alt="coinbase logo" />
+                </li>
+            </ul>
+            <ul class="flex items-center">
+                <li>
+                    <h1 class="pl-8 lg:pl-0 text-gray-700">Coinbase Portfolio Tracker</h1>
+                </li>
+            </ul>
+            <!-- to bar right  -->
+            <ul class="flex items-center">
+
+                <li class="pr-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-bell">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+
+
+    <div class="max-auto  px-8 py-12 bg-white">
+        <div class="flex justify-between">
+            <div class="welcomecopy flex items-center space-x-4 mr-10">
+                <h1 class="text-black text-4xl font-bold">Total Portfolio Value:<br>$<span
+                        class="font-mono text-blue-700" id='portfolio-value'>32,599</span></h1>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+
+<script src="../public/js/dashboard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+</html>

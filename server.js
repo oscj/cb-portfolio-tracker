@@ -1,33 +1,26 @@
 const express = require("express");
+const morgan = require('morgan');
 const server = express();
 
-// Server config
+server.use(morgan('combined'))  // Logger
+server.use(express.json());
+server.use(express.urlencoded({ // enables passing of POST data through x-www-form-urlencoded
+    extended: true
+}));
 server.use(express.static(__dirname + '/public'));
-server.set("views", __dirname + "/views");
-server.engine("html", require("ejs").renderFile);
+
+const accountInfo = require("./routes/accountInfo");            // account info router
+const marketInfo = require("./routes/marketInfo");              // market info router
+const errorHandler = require("./middlewares/errorHandlers");    // error handler middlewares
 
 server.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     next();
 });
 
-// enables passing of POST data through x-www-form-urlencoded
-server.use(express.json());
-server.use(express.urlencoded({
-    extended: true
-}));
-
-const accountInfo = require("./routes/accountInfo");            // account info router
-const marketInfo = require("./routes/marketInfo");              // market info router
-const errorHandler = require("./middlewares/errorHandlers");    // error handler middlewares
-
 // assign routes to routers
 server.use("/account-info", accountInfo);
 server.use("/market-info", marketInfo);
-
-server.get("/dashboard", (req, res) => {
-    res.render('test.html');
-});
 
 // use error handlers
 server.use(errorHandler.clientErrorHandler);
