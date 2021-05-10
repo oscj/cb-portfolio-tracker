@@ -9,13 +9,12 @@ const populatePortfolioValue = () => {
         cache: false,
         async: 'asynchronous',
         success: function (json) {
-
-            console.log(json);
             document.getElementById('portfolio-value').innerHTML = json.totalBalance;
+            document.getElementById('portfolio-currency').innerHTML = json.nativeCurrency;
         },
         error: function (request, status, error) {
-            console.log("Couldn't get response from API")
-            console.log(error)
+            alert("Couldn't fetch portfolio value");
+            document.getElementById('portfolio-value').innerHTML = '00.00';
         }
     });
 };

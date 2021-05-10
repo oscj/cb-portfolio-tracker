@@ -4,9 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "electron-start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "electron . & nodemon server.js"
+    "dev": "electron . & nodemon server.js",
+    "server" : "nodemon server.js"
   },
   "author": "Oscar Jaimes",
   "license": "ISC",
