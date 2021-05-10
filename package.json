@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "electron . & nodemon server.js",
-    "server" : "nodemon server.js"
+    "server" : "nodemon server.js",
+    "electron" : "electron ."
   },
   "author": "Oscar Jaimes",
   "license": "ISC",
