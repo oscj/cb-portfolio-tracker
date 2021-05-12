@@ -44,9 +44,9 @@ __POST__ | /account-transactions | __id__ : account id | A list of all transacti
 Base Route: __/market-info__
 Type | Route | Body Params | Response
 -----|-------|--------|--------
-__POST__  | /coin-price-in-curr | __coin__ : coin ticker symbol <br /> __currency__ : currency abbreviation | Current coin price in specified currency
-__POST__ | /coin-price-at-date  | __coin__ : coin ticker symbol <br /> __currency__ : currency abbreviation <br /> __date__ : date to get price for | The price of the coin at the given date, in the given currency
-__POST__ | /change-in-price | __coin__ : coin ticker symbol <br /> __currency__ : currency abbreviation <br /> __date__ : starting date to calculate change | percentage and absolute change of price of the specified coin, since the specified date
+__POST__  | /coin-price-in-curr | __coin__ : coin ticker <br /> __currency__ : currency | Current coin price in specified currency
+__POST__ | /coin-price-at-date  | __coin__ : coin ticker <br /> __currency__ : currency <br /> __date__ : date | The price of the coin at the given date, in the given currency
+__POST__ | /change-in-price | __coin__ : coin ticker<br /> __currency__ : currency <br /> __date__ : start date | Percentage and absolute change of price of the specified coin, since the specified date
 
 
-_Date is in UTC, currencies are abbreviations (i.e. USD, CAD)_
+_Coin ticker is like BTC, ETH, etc... Date is in UTC, currencies are abbreviations (i.e. USD, CAD)_
