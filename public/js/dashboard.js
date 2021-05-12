@@ -48,12 +48,10 @@ const populateAccountList = () => {
 
 const populatePortfolioPieChart = async (accountsObject) => {
     let accounts = accountsObject.wallet;
-    console.log(accounts);
     let totalValues = {};
     for (coin in accounts) {
         if (Number(accounts[coin].amount) > 0) {
             totalCoins = accounts[coin].amount;
-            console.log(totalCoins);
             await $.ajax({
                 type: 'post',
                 url: "http://localhost:3007/market-info/coin-price-in-curr",
@@ -74,9 +72,6 @@ const populatePortfolioPieChart = async (accountsObject) => {
         }
     }
 
-
-    console.log(totalValues);
-
     labels = [];
     values = [];
     colors = [];
@@ -84,9 +79,9 @@ const populatePortfolioPieChart = async (accountsObject) => {
         labels.push(coin);
         values.push(totalValues[coin]);
 
-        let red = getRndInteger(0,255);
-        let green = getRndInteger(0,255);
-        let blue = getRndInteger(0,255);
+        let red = getRndInteger(0, 255);
+        let green = getRndInteger(0, 255);
+        let blue = getRndInteger(0, 255);
         colors.push(`rgb(${red}, ${green}, ${blue})`);
     }
 

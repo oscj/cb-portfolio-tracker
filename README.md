@@ -6,33 +6,44 @@ Coinbase does not let you see your percentage P/L on owned assets. This applicat
 
 ## 1. configure .env file with API key
 
-create a .env file in the root of your cloned directory with your own Coinbase Pro API Key and API secret. Make sure the file is in the following form:
+create a .env file in the root of your cloned directory with your own Coinbase API Key and API secret. Make sure the file is in the following form:
 
 ``` 
 API_KEY=<YOUR_API_KEY>
 API_SECRET=<YOUR_API_SECRET>
 ```
 
-# components
-
-* The __api/__ folder contains Node js express app for interfacing with Coinbase API
-
-* The __potfoliotacker/__ directory contains a dart application (developed for the web) to display portfolio information.
-
 # development
-## running the web app 
-
-Navigate to the __portfoliotracker/__ directory and execute the following command:
-
-``` bash
-flutter run -d chrome
+You can run the node server (on a specified port) and the electron application simultaneously with the following command:
+```
+npm run dev <PORT>
 ```
 
-## running the api 
-
-Navigate to the __api/__ directory and execute the following command:
-
-``` bash
-npm run dev
+To run the server by itself, 
 ```
-The express server listens on port 3007.
+npm run server <PORT>
+```
+
+If you do not supply a port, the server will run on 3007 by default.
+
+To run the electron application by itself,
+```
+npm run electron
+```
+
+# api
+
+Base Route: __/account-info__
+Type | Route | Body Params | Response
+-----|-------|--------|--------
+__GET__  | /accounts | none | All available accounts and their associated coin amounts)
+__GET__ | /portfolio-value | none | Total portfolio value in user's native currency
+__POST__ | /account-balance | __id__ : account id | Balance for specified account id in user's native currency
+__POST__ | /account-transactions | __id__ : account id | A list of all transactions for specified account id
+
+Base Route: __/market-info__
+Type | Route | Body Params | Response
+-----|-------|--------|--------
+__POST__  | /coin-price-in-curr | __coin__ : coin ticker symbol <br /> __currency__ : currency abbreviation | Current coin price in specified currency
+__POST__ | /coin-price-at-date  | __coin__ : coin ticker symbol <br /> __currency__ : currency abbreviation <br /> __date__ : date to get price for | The price of the coin at the given date, in the given currency
+__POST__ | /change-in-price | __coin__ : coin ticker symbol <br /> __currency__ : currency abbreviation <br /> __date__ : starting date to calculate change | percentage and absolute change of price of the specified coin, since the specified date
