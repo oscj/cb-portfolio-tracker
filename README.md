@@ -2,6 +2,8 @@
 
 Coinbase does not let you see your percentage P/L on owned assets. This application serves to show your portfolio P/L and give you insights to the development of your investments.
 
+![screenshot](https://github.com/oscjaimes/cb-portfolio-tracker/blob/main/screenshots/screenshot.png)
+
 # set up
 
 ## 1. configure .env file with API key
