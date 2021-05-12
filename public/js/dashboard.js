@@ -97,16 +97,6 @@ const populatePortfolioPieChart = async (accountsObject) => {
                 hoverOffset: 4
             }]
         },
-        options: {
-            title: {
-                display: true,
-                fullSize: true,
-                text: 'Investment Breakdown',
-                font: {
-                    weight: 'bold'
-                }
-            }
-        }
     });
 
 };
