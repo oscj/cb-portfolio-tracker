@@ -40,9 +40,9 @@ router.get("/portfolio-value", (req, res) => {
 
 // POST to return account balance object
 // account id is sent through POST body
-router.post("/account-balace", (req, res, next) => {
+router.post("/account-balance", (req, res, next) => {
     body = req.body;
-
+    id = body.id;
     // Check that id is in body
     if (id == null || typeof id === 'undefined') {
         err = {
@@ -52,12 +52,15 @@ router.post("/account-balace", (req, res, next) => {
         next(err, req, res);
     }
 
+    console.log("ID: ", id);
+
     let coinbaseClient = new CoinbaseClient().client;
     coinbaseClient.getAccount(id, (err, account) => {
         if (err) {
             next(err, req, res);
         }
 
+        console.log(account);
         // Return account balance and currency name
         res.status(200).json({
             balance: account.balance.amount,
